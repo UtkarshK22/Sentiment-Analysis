@@ -7,7 +7,7 @@ from sklearn.linear_model import LogisticRegression
 
 app = Flask(__name__)
 
-# Step 1: Simple dataset
+# ✅ Step 1: Correct dataset
 data = {
     "text": [
         "Absolutely fantastic",
@@ -18,15 +18,26 @@ data = {
         "Worst experience ever",
         "I hate this",
         "This is terrible",
-        "Very bad quality"
-        "I love this product",
+        "Very bad quality",
+        "I love this product"
     ],
-    "label": ["positive", "positive", "positive", "negative", "negative", "negative", "positive", "negative", "positive", "negative"]
+    "label": [
+        "positive",
+        "negative",
+        "positive",
+        "positive",
+        "positive",
+        "negative",
+        "negative",
+        "negative",
+        "negative",
+        "positive"
+    ]
 }
 
 df = pd.DataFrame(data)
 
-# Step 2: Preprocessing
+# ✅ Step 2: Preprocessing
 def clean_text(text):
     text = text.lower()
     text = re.sub(r'[^a-z\s]', '', text)
@@ -35,15 +46,15 @@ def clean_text(text):
 df["text"] = df["text"].apply(clean_text)
 df["label"] = df["label"].map({"positive": 1, "negative": 0})
 
-# Step 3: TF-IDF
+# ✅ Step 3: TF-IDF
 vectorizer = TfidfVectorizer()
 X = vectorizer.fit_transform(df["text"])
 
-# Step 4: Model
+# ✅ Step 4: Model
 model = LogisticRegression()
 model.fit(X, df["label"])
 
-# Step 5: Prediction function
+# ✅ Step 5: Prediction function
 def predict_sentiment(text):
     text = clean_text(text)
     text_vec = vectorizer.transform([text])
@@ -51,7 +62,7 @@ def predict_sentiment(text):
 
     return "POSITIVE 😊" if result[0] == 1 else "NEGATIVE 😠"
 
-# Step 6: Flask routes
+# ✅ Step 6: Flask routes
 @app.route("/", methods=["GET", "POST"])
 def home():
     prediction = ""
@@ -62,6 +73,6 @@ def home():
 
     return render_template("index.html", prediction=prediction)
 
-# Step 7: Run app
+# ✅ Step 7: Run app
 if __name__ == "__main__":
     app.run(debug=True)
