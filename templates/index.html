@@ -1,43 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Sentiment Analysis</title>
-    <style>
-        body {
-            font-family: Arial;
-            text-align: center;
-            background: #0f172a;
-            color: white;
-            margin-top: 100px;
-        }
-        input {
-            padding: 10px;
-            width: 300px;
-        }
-        button {
-            padding: 10px 20px;
-            margin-top: 10px;
-        }
-        .result {
-            margin-top: 20px;
-            font-size: 22px;
-            font-weight: bold;
-        }
-    </style>
+    <title>Sentiment Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
-    <h1>💬 Sentiment Analysis System</h1>
-
-    <form method="POST">
-        <input type="text" name="text" placeholder="Enter your sentence" required>
+<div class="container">
+    <h1>Amazon Review Sentiment Analysis</h1>
+    <p style="font-size: 14px; opacity: 0.7;">
+    Analyze customer sentiment using machine learning
+</p>
+    <form action="/predict" method="post">
+        <textarea name="review" placeholder="Enter your review..."></textarea>
         <br>
-        <button type="submit">Analyze</button>
+        <button type="submit" onclick="this.innerText='Analyzing...'">Analyze</button>
     </form>
-
-    <div class="result">
-        {{ prediction }}
-    </div>
+</div>
 
 </body>
 </html>
